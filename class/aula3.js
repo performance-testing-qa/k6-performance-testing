@@ -1,15 +1,15 @@
-// Realizing Checks 
-    // Validam condicoes booleanas no teste de performance 
-        // Principalmente em pontos como: Se o sistema esta 
-        // respondendo com o conteudo que e esperado.
+// Performing Checks
+    // Validate boolean conditions in the performance test
+        // Mainly at points such as: If the system is
+        // responding with the expected content.
 
 import http from 'k6/http';
 
-// Nota1
-    // primeiro: importar o modulo do k6 que realiza esse tipo de validacao 
+// Note1
+    // first: import the k6 module that performs this type of validation
     // https://grafana.com/docs/k6/latest/using-k6/modules/
-    // obs: quando for importar o modulo, deve-se colocar o nome do modulo
-    // entre colchetes, como abaixo.
+    // note: when importing the module, you should put the module name
+    // in square brackets, as below.
 import { check } from 'k6';
 
 export const options = {
@@ -17,16 +17,15 @@ export const options = {
     duration: '3s'
 }
 
-export default function(){
-    
-// Nota2
-    // segundo: armazenar o conteudo que e retornado da requisicao 
-    // em algum lugar. Abaixo colocamos em uma contante.
-    const rest = http.get('http://test.k6.io');
+export default function() {
 
-    // terceiro: utilizamos o modulo check para validar o objeto.
-    check(rest,{
+    // Note2
+    // second: store the content returned from the request
+    // somewhere. Below we put it in a constant.
+    const res = http.get('http://test.k6.io');
 
-        'status code é 200': (r) => r.status === 200
-    })
+    // third: use the check module to validate the object.
+    check(res, {
+        'status code is 200': (r) => r.status === 200
+    });
 }
